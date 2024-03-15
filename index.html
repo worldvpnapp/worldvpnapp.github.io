@@ -19,7 +19,17 @@
     background-size: cover;
     background-position: center;
     
-}
+    }
+    #cookieConsent {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            display: none;
+        }
 </style>
 <body>
 
@@ -55,9 +65,43 @@
     <p>ห้ามใช้แอปนี้ในทางที่ผิดกฏหมาย อาทิ ddos hack หรือลักษณะต่างๆที่มีพฤติกรรมที่ไม่เหมาะสม ถ้าตรวจพบจาก ip แล้วพบพฤติกรรมการกระทำผิดกฏหมาย จะทำการแบนไอพีเครื่องนั้นโดยทันที จะใช้งานเน็ตไม่ได้</p>
 </section>
    
+<div id="cookieConsent">
+    เว็บไซต์นี้ใช้คุกกี้เพื่อปรับปรุงประสบการณ์ของคุณ. <a href="#" style="color:#CCCCCC;">เรียนรู้เพิ่มเติม</a>. <button onclick="acceptCookieConsent();">ยอมรับ</button>
+</div>
 
+<script>
+window.onload = function() {
+    if (!getCookie("cookieConsent")) {
+        document.getElementById("cookieConsent").style.display = "block";
+    }
+}
 
+function acceptCookieConsent() {
+    setCookie("cookieConsent", "1", 365);
+    document.getElementById("cookieConsent").style.display = "none";
+}
 
+function setCookie(name, value, days) {
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = ";expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + value + expires + ";path=/";
+}
+
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+</script>
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
